@@ -3,7 +3,7 @@ import { GraphQLModule } from '@graphql-modules/core';
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
 
-import { isNameOrColorUnique } from '../../middlewares';
+import { isNameOrColorUnique, isEmployeeTypeEmpty } from '../../middlewares';
 
 export default new GraphQLModule({
   name: 'employeeTypes',
@@ -13,5 +13,6 @@ export default new GraphQLModule({
 	resolversComposition: {
 		'Mutation.createEmployeeType': isNameOrColorUnique,
 		'Mutation.updateEmployeeType': isNameOrColorUnique,
+		'Mutation.deleteEmployeeType': isEmployeeTypeEmpty
   }
 })

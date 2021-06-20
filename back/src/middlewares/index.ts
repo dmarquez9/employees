@@ -1,4 +1,5 @@
 import EmployeeTypesModel from '../schemas/EmployeeTypes.schema';
+import EmployeesModel from '../schemas/Employees.schema';
 
 export const isNameOrColorUnique = (next: any) => async (root: any, args: any, context: any, info: any) => {
   const { name, color } = args.input
@@ -29,6 +30,18 @@ export const isEmployeeTypeValid = (next: any) => async (root: any, args: any, c
       
   if (!employeeType) {
     return { message: "Employee Type don't exist", result: null }
+  }
+
+  return next(root, args, context, info);
+}
+
+export const isEmployeeTypeEmpty = (next: any) => async (root: any, args: any, context: any, info: any) => {
+  const { id } = args.input
+
+  const employees = await EmployeesModel.find({ employeeType: id });
+      
+  if (employees?.length) {
+    return { message: "Cannot delete this employee type because it still has employees", result: null }
   }
 
   return next(root, args, context, info);
