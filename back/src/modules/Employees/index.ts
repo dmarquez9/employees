@@ -11,6 +11,7 @@ export default new GraphQLModule({
 	resolvers,
 	imports: [],
 	resolversComposition: {
-		'Mutation.createEmployee': isEmployeeTypeValid
+		'Mutation.createEmployee': isEmployeeTypeValid,
+		'Mutation.updateEmployee': isEmployeeTypeValid
 	}
 })
