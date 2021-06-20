@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { ApolloProvider } from '@apollo/client';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import client from './lib/client';
 
 import '@fontsource/roboto';
 
 ReactDOM.render(
   <React.StrictMode>
-    <CssBaseline />
-    <App />
+    <ApolloProvider client={client}>
+      <CssBaseline />
+      <App />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
