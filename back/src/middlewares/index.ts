@@ -1,6 +1,5 @@
 import EmployeeTypesModel from '../schemas/EmployeeTypes.schema';
 
-
 export const isNameOrColorUnique = (next: any) => async (root: any, args: any, context: any, info: any) => {
   const { name, color } = args.input
 
@@ -18,6 +17,18 @@ export const isNameOrColorUnique = (next: any) => async (root: any, args: any, c
     if (employeeTypeColor) {
       return { message: 'Emplooye type color already exist!', result: null }
     }
+  }
+
+  return next(root, args, context, info);
+}
+
+export const isEmployeeTypeValid = (next: any) => async (root: any, args: any, context: any, info: any) => {
+  const { employeeTypeId } = args.input
+
+  const employeeType = await EmployeeTypesModel.findById(employeeTypeId);
+      
+  if (!employeeType) {
+    return { message: "Employee Type don't exist", result: null }
   }
 
   return next(root, args, context, info);
