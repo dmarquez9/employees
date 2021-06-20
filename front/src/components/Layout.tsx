@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import { Link } from "react-router-dom";
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -129,11 +130,11 @@ const PersistentDrawerLeft: React.FC = ({ children }) => {
         </div>
         <Divider />
         <List>
-          <ListItem button>
+          <ListItem button component={Link} to="/">
             <ListItemIcon><WorkIcon /></ListItemIcon>
             <ListItemText primary="Employees" />
           </ListItem>
-          <ListItem button>
+          <ListItem button component={Link} to="/employee-types">
             <ListItemIcon><WorkIcon /></ListItemIcon>
             <ListItemText primary="Employee Types" />
           </ListItem>

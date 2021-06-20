@@ -1,21 +1,28 @@
-import React from 'react';
 import Layout from './components/Layout';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+
+// Pages
+import EmployeeTypes from './pages/EmployeeTypes';
+import Employees from './pages/Employees';
 
 function App() {
   return (
-    <Layout>
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </Layout>
+    <Router>
+      <Layout>
+        <Switch>
+          <Route path="/employee-types">
+            <EmployeeTypes />
+          </Route>
+          <Route path="/" exact>
+            <Employees />
+          </Route>
+        </Switch>
+      </Layout>
+    </Router>
   );
 }
 
