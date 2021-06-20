@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  mongodb:
+    image: 'mongo'
+    container_name: 'employee-mongodb'
+    environment:
+      - MONGO_INITDB_DATABASE=employee
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=masterkey
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - mongodata:/data/db
+    ports:
+      - 27017:27017
+
+volumes:
+  mongodata:
+    driver: local
