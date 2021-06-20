@@ -45,7 +45,12 @@ export default `
     deleteAllEmployees: DeleteResponse!
   }
 
+  type EmployeesQuery {
+    data: [Employees]
+    total: Int!
+  }
+
   type Query {
-    employees: [Employees]
+    employees(limit: Int! offset: Int!): EmployeesQuery
   }
 `

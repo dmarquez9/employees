@@ -13,10 +13,23 @@ type DeleteEmployeeInput = {
   id: string;
 }
 
+type GetEmployees = {
+  limit: number;
+  offset: number;
+}
+
 class EmployeesController {
-  static getAll = async () => {
+  static getAll = async (parent: any, args: GetEmployees) => {
+    const { limit, offset } = args
     try {
-      return await EmployeesModel.find().populate('employeeType');
+      const result = await EmployeesModel
+        .find()
+        .limit(limit)
+        .skip(offset)
+        .populate('employeeType');
+
+      const total = await EmployeesModel.countDocuments();
+      return { data: result, total }
     } catch(e) {
       throw new Error(JSON.stringify(e));
     }
