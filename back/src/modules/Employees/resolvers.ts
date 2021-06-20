@@ -7,6 +7,7 @@ export default {
   Mutation: {
     createEmployee: EmployeesController.create,
     updateEmployee: EmployeesController.update,
-    deleteEmployee: EmployeesController.remove
+    deleteEmployee: EmployeesController.remove,
+    deleteAllEmployees: EmployeesController.removeAll,
   }
 }

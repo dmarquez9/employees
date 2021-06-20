@@ -8,5 +8,6 @@ export default {
     createEmployeeType: EmployeeTypesController.create,
     updateEmployeeType: EmployeeTypesController.update,
     deleteEmployeeType: EmployeeTypesController.remove,
+    deleteAllEmployeeTypes: EmployeeTypesController.removeAll,
   }
 }

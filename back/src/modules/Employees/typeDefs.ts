@@ -42,6 +42,7 @@ export default `
     createEmployee(input: InputEmployee): EmployeeResponse!
     updateEmployee(input: InputUpdateEmployee): EmployeeResponse!
     deleteEmployee(input: InputDeleteEmployee): DeleteResponse!
+    deleteAllEmployees: DeleteResponse!
   }
 
   type Query {

@@ -33,6 +33,7 @@ export default `
     createEmployeeType(input: InputEmployeeType): GenericResponse!
     updateEmployeeType(input: InputUpdateEmployeeType): GenericResponse!
     deleteEmployeeType(input: InputDeleteEmployeeType): MessageResponse!
+    deleteAllEmployeeTypes: MessageResponse!
   }
   
   type Query {

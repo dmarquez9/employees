@@ -75,6 +75,15 @@ class EmployeesController {
       throw new Error(JSON.stringify(e));
     }
   }
+
+  static removeAll = async () => {
+    try {
+      await EmployeesModel.deleteMany()
+      return { message: 'Deleted all employees.' };
+    } catch(e) {
+      throw new Error(JSON.stringify(e));
+    }
+  };
 };
 
 export default EmployeesController;
