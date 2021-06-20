@@ -35,8 +35,13 @@ export default `
     deleteEmployeeType(input: InputDeleteEmployeeType): MessageResponse!
     deleteAllEmployeeTypes: MessageResponse!
   }
+
+  type EmployeeTypesQuery {
+    data: [EmployeeTypes]
+    total: Int!
+  }
   
   type Query {
-    employeeTypes: [EmployeeTypes]
+    employeeTypes(limit: Int! offset: Int!): EmployeeTypesQuery!
   }
 `
