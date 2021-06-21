@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GET_EMPLOYEE_TYPES = gql`
+export const GET_EMPLOYEES = gql`
   query (
     $limit: Int!
     $offset: Int!
@@ -24,7 +24,7 @@ export const GET_EMPLOYEE_TYPES = gql`
   }
 `;
 
-export const ADD_EMPLOYEE_TYPE = gql`
+export const ADD_EMPLOYEES = gql`
   mutation (
     $name: String!,
     $employeeTypeId: ID!
@@ -48,7 +48,7 @@ export const ADD_EMPLOYEE_TYPE = gql`
   }
 `;
 
-export const UPDATE_EMPLOYEE_TYPE = gql`
+export const UPDATE_EMPLOYEES = gql`
   mutation (
     $id: ID!,
     $name: String!,
@@ -74,7 +74,7 @@ export const UPDATE_EMPLOYEE_TYPE = gql`
   }
 `;
 
-export const DELETE_EMPLOYEE_TYPE = gql`
+export const DELETE_EMPLOYEES = gql`
   mutation ($id: ID!) {
     deleteEmployee(input: {
       id: $id

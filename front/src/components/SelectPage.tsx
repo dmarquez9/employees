@@ -30,15 +30,17 @@ function SelectPage({ value, handlePage, total }: SelectPageProps) {
     <Box mt={4}>
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel>Select Page</InputLabel>
-        <Select
-          value={value}
-          onChange={handlePage}
-          label="Select Page"
-        >
-          {Array.from(Array(pageSize).keys()).map((page) => (
-            <MenuItem value={page + 1} key={page + 1}>{page + 1}</MenuItem>
-          ))}
-        </Select>
+        {pageSize && pageSize > 0 && (
+          <Select
+            value={value}
+            onChange={handlePage}
+            label="Select Page"
+          >
+            {Array.from(Array(pageSize).keys())?.map((page) => (
+              <MenuItem value={page + 1} key={page + 1}>{page + 1}</MenuItem>
+            ))}
+          </Select>
+        )}
       </FormControl>
     </Box>
   )
