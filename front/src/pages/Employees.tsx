@@ -47,6 +47,7 @@ const Employees: React.FC = () => {
       {!loading && data ? (
         <EmployeesTable
           rows={data?.employees?.data}
+          refetch={refetch}
         /> 
       ) : null}
       {!data && !loading ? (
