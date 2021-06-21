@@ -3,17 +3,20 @@ import EmployeesModel from '../schemas/Employees.schema';
 
 export const isNameOrColorUnique = (next: any) => async (root: any, args: any, context: any, info: any) => {
   const { name, color } = args.input
+  const id = args?.input?.id ? {
+    _id: { $ne: args.input.id }
+  } : {}
 
   if (name) {
-    const employeeTypeName = await EmployeeTypesModel.findOne({ name });
+    const employeeTypeName = await EmployeeTypesModel.findOne({ name, ...id });
 
     if (employeeTypeName) {
       return { message: 'Emplooye type name already exist!', result: null }
     }
   }
 
-  if (name) {
-    const employeeTypeColor = await EmployeeTypesModel.findOne({ color });
+  if (color) {
+    const employeeTypeColor = await EmployeeTypesModel.findOne({ color, ...id });
 
     if (employeeTypeColor) {
       return { message: 'Emplooye type color already exist!', result: null }

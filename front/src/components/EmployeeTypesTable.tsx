@@ -11,6 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import { EmployeeTypesProps } from '../types/EmployeeTypes.types';
+import UpdateEmployeeType from './UpdateEmployeeType';
 
 
 type EmployeeTypesTableProps = {
@@ -18,35 +19,52 @@ type EmployeeTypesTableProps = {
 }
 
 const EmployeeTypesTable: React.FC<EmployeeTypesTableProps> = ({ rows }) => {
+  const [data, setData] = React.useState<EmployeeTypesProps | undefined>();
+  const [open, setOpen] = React.useState<boolean>(false);
+
+  const handleUpdateIcon = (employeeType: EmployeeTypesProps) => {
+    setData(employeeType)
+    setOpen(true)
+  }
+  
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="employee types table">
-        <TableHead>
-          <TableRow>
-            <TableCell width="45%">Name</TableCell>
-            <TableCell width="45%" align="center">Color</TableCell>
-            <TableCell />
-            <TableCell />
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row: EmployeeTypesProps) => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row" width="45%">
-                {row.name}
-              </TableCell>
-              <TableCell align="center" width="45%">{row.color}</TableCell>
-              <TableCell>
-                <IconButton><EditIcon /></IconButton>
-              </TableCell>
-              <TableCell>
-                <IconButton color="secondary"><DeleteIcon /></IconButton>
-              </TableCell>
+    <>
+      <TableContainer component={Paper}>
+        <Table aria-label="employee types table">
+          <TableHead>
+            <TableRow>
+              <TableCell width="45%">Name</TableCell>
+              <TableCell width="45%" align="center">Color</TableCell>
+              <TableCell />
+              <TableCell />
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row: EmployeeTypesProps) => (
+              <TableRow key={row.id}>
+                <TableCell component="th" scope="row" width="45%">
+                  {row.name}
+                </TableCell>
+                <TableCell align="center" width="45%">{row.color}</TableCell>
+                <TableCell>
+                  <IconButton onClick={() => handleUpdateIcon(row)}><EditIcon /></IconButton>
+                </TableCell>
+                <TableCell>
+                  <IconButton color="secondary"><DeleteIcon /></IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {data && (
+        <UpdateEmployeeType
+          open={open}
+          handleClose={() => setOpen(false)}
+          data={data}
+        />
+      )}
+    </>
   );
 }
 

@@ -8,11 +8,13 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 import Modal from './Modal';
-import { ADD_EMPLOYEE_TYPE } from '../queries/EmployeeTypes.queries';
+import { UPDATE_EMPLOYEE_TYPE } from '../queries/EmployeeTypes.queries';
+import { EmployeeTypesProps } from '../types/EmployeeTypes.types';
 
-type CreateEmployeeTypeProps = {
+type UpdateEmployeeTypeProps = {
   open: boolean;
   handleClose: () => void;
+  data: EmployeeTypesProps;
 }
 
 const validationSchema = yup.object({
@@ -25,19 +27,22 @@ const validationSchema = yup.object({
 });
 
 
-const CreateEmployeeType: React.FC<CreateEmployeeTypeProps> = ({
+const UpdateEmployeeType: React.FC<UpdateEmployeeTypeProps> = ({
   open,
-  handleClose
+  handleClose,
+  data
 }) => {
   const formik = useFormik({
     initialValues: {
-      name: '',
-      color: '',
+      id: data?.id,
+      name: data?.name,
+      color: data?.color,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      addEmployeeType({
+      putEmployeeType({
         variables: {
+          id: values.id,
           name: values.name,
           color: values.color
         }
@@ -45,9 +50,9 @@ const CreateEmployeeType: React.FC<CreateEmployeeTypeProps> = ({
     },
   });
   
-  const [addEmployeeType, { data }] = useMutation(ADD_EMPLOYEE_TYPE, {
-    onCompleted: ({ createEmployeeType }) => {
-      if (createEmployeeType?.result) {
+  const [putEmployeeType, { data: mutationData }] = useMutation(UPDATE_EMPLOYEE_TYPE, {
+    onCompleted: ({ updateEmployeeType }) => {
+      if (updateEmployeeType?.result) {
         formik.resetForm()
         handleClose()
       }
@@ -59,8 +64,8 @@ const CreateEmployeeType: React.FC<CreateEmployeeTypeProps> = ({
       open={open}
       handleClose={handleClose}
     >
-      {data?.createEmployeeType?.message && !data?.createEmployeeType?.result && (
-        <Typography paragraph color="secondary">{data.createEmployeeType.message}</Typography>
+      {mutationData?.updateEmployeeType?.message && !mutationData?.updateEmployeeType?.result && (
+        <Typography paragraph color="secondary">{mutationData.updateEmployeeType.message}</Typography>
       )}
       <form onSubmit={formik.handleSubmit}>
         <TextField
@@ -93,4 +98,4 @@ const CreateEmployeeType: React.FC<CreateEmployeeTypeProps> = ({
   )
 }
 
-export default CreateEmployeeType
+export default UpdateEmployeeType

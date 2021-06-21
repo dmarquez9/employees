@@ -28,3 +28,24 @@ export const ADD_EMPLOYEE_TYPE = gql`
     }
   }
 `;
+
+export const UPDATE_EMPLOYEE_TYPE = gql`
+  mutation (
+    $id: ID!,
+    $name: String!,
+    $color: String!
+  ) {
+    updateEmployeeType(input: {
+      id: $id,
+      name: $name,
+      color: $color
+    }) {
+      message
+      result {
+        id
+        name
+        color
+      }
+    }
+  }
+`;
