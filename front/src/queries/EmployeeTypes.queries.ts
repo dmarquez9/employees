@@ -9,3 +9,22 @@ export const GET_EMPLOYEE_TYPES = gql`
     }
   }
 `;
+
+export const ADD_EMPLOYEE_TYPE = gql`
+  mutation (
+    $name: String!,
+    $color: String!
+  ) {
+    createEmployeeType(input: {
+      name: $name
+      color: $color
+    }) {
+      message
+      result {
+        id
+        name
+        color
+      }
+    }
+  }
+`;

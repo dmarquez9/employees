@@ -1,3 +1,4 @@
+import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -5,9 +6,11 @@ import Grid from '@material-ui/core/Grid';
 
 import useEmployeeTypes from '../hooks/useEmployeeTypes';
 import EmployeeTypesTable from '../components/EmployeeTypesTable';
+import CreateEmployeeType from '../components/CreateEmployeeType';
 
 const EmployeeTypes: React.FC = () => {
   const { loading, data } = useEmployeeTypes();
+  const [open, setOpen] = React.useState<boolean>(false);
 
   return (
     <>
@@ -17,8 +20,8 @@ const EmployeeTypes: React.FC = () => {
             Employee Types
           </Typography>
         </Grid>
-        <Grid item xs={12} md={3}>
-          <Button variant="contained" color="primary">
+        <Grid item xs={12} md={4}>
+          <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
             Create a new employee type
           </Button>
         </Grid>
@@ -30,6 +33,7 @@ const EmployeeTypes: React.FC = () => {
           No employee types created!
         </Typography>
       ) : null}
+      <CreateEmployeeType open={open} handleClose={() => setOpen(false)} />
     </>
   )
 }
