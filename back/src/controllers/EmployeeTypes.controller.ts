@@ -9,21 +9,10 @@ type EmployeeTypeInput = {
 type CreateEmployeeTypeInput = Omit<EmployeeTypeInput, 'id'>
 type RemoveEmployeeTypeInput = Omit<EmployeeTypeInput, 'name' | 'color'>
 
-type GetEmployeeTypes = {
-  limit: number;
-  offset: number;
-}
 class EmployeeTypesController {
-  static getAll = async (parent: any, args: GetEmployeeTypes) => {
-    const { limit, offset } = args
+  static getAll = async () => {
     try {
-      const result = await EmployeeTypesModel
-        .find()
-        .limit(limit)
-        .skip(offset);
-
-      const total = await EmployeeTypesModel.countDocuments();
-      return { data: result, total }
+      return await EmployeeTypesModel.find()
     } catch(e) {
       throw new Error(JSON.stringify(e));
     }

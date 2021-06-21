@@ -42,6 +42,6 @@ export default `
   }
   
   type Query {
-    employeeTypes(limit: Int! offset: Int!): EmployeeTypesQuery!
+    employeeTypes: [EmployeeTypes]
   }
 `
