@@ -12,19 +12,27 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import { EmployeeTypesProps } from '../types/EmployeeTypes.types';
 import UpdateEmployeeType from './UpdateEmployeeType';
+import DeleteEmployeeType from './DeleteEmployeeType';
 
 
 type EmployeeTypesTableProps = {
   rows: EmployeeTypesProps[];
+  refetch: () => void;
 }
 
-const EmployeeTypesTable: React.FC<EmployeeTypesTableProps> = ({ rows }) => {
+const EmployeeTypesTable: React.FC<EmployeeTypesTableProps> = ({ rows, refetch }) => {
   const [data, setData] = React.useState<EmployeeTypesProps | undefined>();
-  const [open, setOpen] = React.useState<boolean>(false);
+  const [openUpdate, setOpenUpdate] = React.useState<boolean>(false);
+  const [openDelete, setOpenDelete] = React.useState<boolean>(false);
 
   const handleUpdateIcon = (employeeType: EmployeeTypesProps) => {
     setData(employeeType)
-    setOpen(true)
+    setOpenUpdate(true)
+  }
+
+  const handleDeleteIcon = (employeeType: EmployeeTypesProps) => {
+    setData(employeeType)
+    setOpenDelete(true)
   }
   
   return (
@@ -50,17 +58,35 @@ const EmployeeTypesTable: React.FC<EmployeeTypesTableProps> = ({ rows }) => {
                   <IconButton onClick={() => handleUpdateIcon(row)}><EditIcon /></IconButton>
                 </TableCell>
                 <TableCell>
-                  <IconButton color="secondary"><DeleteIcon /></IconButton>
+                  <IconButton
+                    onClick={() => handleDeleteIcon(row)}
+                    color="secondary"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      {data && (
+      {data && openUpdate && (
         <UpdateEmployeeType
-          open={open}
-          handleClose={() => setOpen(false)}
+          open={openUpdate}
+          handleClose={() => {
+            setOpenUpdate(false)
+            refetch()
+          }}
+          data={data}
+        />
+      )}
+      {data && openDelete && (
+        <DeleteEmployeeType
+          open={openDelete}
+          handleClose={() => {
+            setOpenDelete(false)
+            refetch()
+          }}
           data={data}
         />
       )}

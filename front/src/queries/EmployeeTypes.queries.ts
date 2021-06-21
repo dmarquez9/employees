@@ -49,3 +49,13 @@ export const UPDATE_EMPLOYEE_TYPE = gql`
     }
   }
 `;
+
+export const DELETE_EMPLOYEE_TYPE = gql`
+  mutation ($id: ID!) {
+    deleteEmployeeType(input: {
+      id: $id
+    }) {
+      message
+    }
+  }
+`;

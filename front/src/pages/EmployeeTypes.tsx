@@ -9,8 +9,13 @@ import EmployeeTypesTable from '../components/EmployeeTypesTable';
 import CreateEmployeeType from '../components/CreateEmployeeType';
 
 const EmployeeTypes: React.FC = () => {
-  const { loading, data } = useEmployeeTypes();
+  const { loading, data, refetch } = useEmployeeTypes();
   const [open, setOpen] = React.useState<boolean>(false);
+
+  const handleCloseCreate = () => {
+    setOpen(false)
+    refetch()
+  }
 
   return (
     <>
@@ -27,13 +32,13 @@ const EmployeeTypes: React.FC = () => {
         </Grid>
       </Grid>
       {loading ? <CircularProgress /> : null}
-      {!loading && data ? <EmployeeTypesTable rows={data} /> : null}
+      {!loading && data ? <EmployeeTypesTable rows={data} refetch={refetch} /> : null}
       {!data && !loading ? (
         <Typography paragraph align="center">
           No employee types created!
         </Typography>
       ) : null}
-      <CreateEmployeeType open={open} handleClose={() => setOpen(false)} />
+      <CreateEmployeeType open={open} handleClose={() => handleCloseCreate()} />
     </>
   )
 }
